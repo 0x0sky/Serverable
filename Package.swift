@@ -1,26 +1,37 @@
-// swift-tools-version: 6.2
-// The swift-tools-version declares the minimum version of Swift required to build this package.
-
+// swift-tools-version:6.2
 import PackageDescription
 
 let package = Package(
     name: "Serverable",
+    platforms: [
+        .iOS(.v16),
+        .macOS(.v12),
+        .tvOS(.v16),
+        .watchOS(.v9)
+    ],
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
-        .library(
-            name: "Serverable",
-            targets: ["Serverable"]
-        ),
+        .library(name: "APIModels", targets: ["APIModels"]),
+        .library(name: "CoreNetworking", targets: ["CoreNetworking"]),
+        .library(name: "Serverable", targets: ["Serverable"])
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "Serverable"
+            name: "APIModels",
+            path: "Sources/APIModels"
+        ),
+        .target(
+            name: "CoreNetworking",
+            dependencies: ["APIModels"],
+            path: "Sources/CoreNetworking"
+        ),
+        .target(
+            name: "Serverable",
+            dependencies: ["APIModels", "CoreNetworking"],
+            path: "Sources/Serverable"
         ),
         .testTarget(
             name: "ServerableTests",
             dependencies: ["Serverable"]
-        ),
+        )
     ]
 )
