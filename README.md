@@ -1,46 +1,46 @@
-📘 README.md
-
 Serverable
 
-Serverable — Swift‑бібліотека для побудови мережевих клієнтів та сервісів з акцентом на чисту архітектуру, розширюваність та портативність.
+Serverable is a Swift library built for networking clients and services. The design is clean, extensible, and portable — engineered for teams that care about architecture and long‑term maintainability.
 
-Вона надає два способи імпорту:
+Import rules
 
-• ✅ import Serverable — umbrella, доступ до всіх компонентів.
-• ✅ import Serverable.CoreNetworking — лише мережевий шар.
-• ❌ import CoreNetworking, import APIModels, import Serverable.APIModels — недоступно.
-
-
----
-
-📦 Архітектура
-
-• CoreNetworking
-Мережевий шар, що інкапсулює роботу з Network та Foundation:• ConnectionManager — управління життєвим циклом з’єднання
-• ClientTransport — актор для клієнтських транспортів з подіями (connecting, connected, failed)
-• BonjourDiscovery — пошук сервісів через Bonjour
-• BonjourEndpoint — модель для опису хоста/порту
-
-• APIModels
-DTO‑структури (EndpointDescriptor, HandshakePayload, Heartbeat, MessageEnvelope).
-Вони не імпортуються напряму, а доступні лише через Serverable або Serverable.CoreNetworking.
+• ✅ import Serverable — umbrella, full access
+• ✅ import Serverable.CoreNetworking — networking layer only
+• ❌ import CoreNetworking, import APIModels, import Serverable.APIModels — not available
 
 
 ---
 
-🚀 Можливості
+Architecture
 
-• Єдиний точковий імпорт (import Serverable)
-• Альтернативний імпорт лише мережевого шару (import Serverable.CoreNetworking)
-• Використання Swift Concurrency (actor, Sendable)
-• Підтримка Bonjour для локального сервіс‑дискавері
-• Чистий розподіл між моделями даних і мережевою логікою
-• Портативність: iOS/macOS додатки та CLI‑утиліти
+CoreNetworking
+Networking layer built on Network and Foundation:
+
+• ConnectionManager — connection lifecycle management
+• ClientTransport — actor handling client transport events (connecting, connected, failed)
+• BonjourDiscovery — Bonjour service discovery
+• BonjourEndpoint — host/port model
+
+
+APIModels
+DTOs (EndpointDescriptor, HandshakePayload, Heartbeat, MessageEnvelope).
+Internal only — exposed through Serverable or Serverable.CoreNetworking, never imported directly.
+
+---
+
+Capabilities
+
+• Single import for full stack (import Serverable)
+• Optional import for networking only (import Serverable.CoreNetworking)
+• Swift Concurrency (actor, Sendable) baked in
+• Bonjour discovery support
+• Clear separation of data models and networking logic
+• Portable across iOS, macOS, and CLI utilities
 
 
 ---
 
-🛠 Використання
+Usage
 
 import Serverable
 
@@ -52,7 +52,7 @@ Task {
 }
 
 
-Або:
+Or:
 
 import Serverable.CoreNetworking
 
@@ -65,19 +65,19 @@ Task {
 
 ---
 
-📂 Структура репозиторію
+Repository Layout
 
 Sources/
- ├── APIModels/        // внутрішні DTO
- ├── CoreNetworking/   // мережевий шар
- └── Serverable/       // umbrella, реекспортує все
+ ├── APIModels/        // internal DTOs
+ ├── CoreNetworking/   // networking layer
+ └── Serverable/       // umbrella, re‑exports everything
 
 
 ---
 
-🔮 Roadmap
+Roadmap
 
-• Юніт‑тести для CoreNetworking
-• Документація протоколів APIModels
-• Приклади інтеграції з iOS UI (SwiftUI)
-• Можливість підключення Rust‑модулів через C ABI
+• Unit tests for CoreNetworking
+• Documentation for APIModels
+• SwiftUI integration examples
+• Rust rewrite of CoreNetworking for performance and portability (C ABI bridge to Swift)
