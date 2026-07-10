@@ -10,8 +10,10 @@ let package = Package(
         .watchOS(.v9)
     ],
     products: [
-        // CoreNetworking не експортується напряму
-        .library(name: "Serverable", targets: ["Serverable"])
+        // Umbrella: все разом
+        .library(name: "Serverable", targets: ["Serverable"]),
+        // Окремий продукт для CoreNetworking
+        .library(name: "Serverable.CoreNetworking", targets: ["CoreNetworking"])
     ],
     targets: [
         .target(
