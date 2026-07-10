@@ -10,8 +10,7 @@ let package = Package(
         .watchOS(.v9)
     ],
     products: [
-        .library(name: "APIModels", targets: ["APIModels"]),
-        .library(name: "CoreNetworking", targets: ["CoreNetworking"]),
+        // CoreNetworking не експортується напряму
         .library(name: "Serverable", targets: ["Serverable"])
     ],
     targets: [
@@ -26,7 +25,7 @@ let package = Package(
         ),
         .target(
             name: "Serverable",
-            dependencies: ["APIModels", "CoreNetworking"],
+            dependencies: ["CoreNetworking"], // APIModels тягнеться через CoreNetworking
             path: "Sources/Serverable"
         ),
         .testTarget(
